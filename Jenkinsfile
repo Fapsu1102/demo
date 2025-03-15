@@ -52,7 +52,7 @@ def parallelStages = [:]
 
 threadList.each { thread ->
     parallelStages["Thread ${thread}"] = {
-        node("alpine_agent") {
+        node("slave") {
             Test(thread.trim())
         }
     }
