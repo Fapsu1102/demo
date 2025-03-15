@@ -34,6 +34,7 @@ node("alpine_agent") {
             }
         }
     }
+    parallel parallelStages
 }
 
-parallel parallelStages
+
