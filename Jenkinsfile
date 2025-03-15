@@ -16,7 +16,8 @@ def Test(String thread) {
     sh "cat logfile_${thread}.txt"
     
     sleep(5)
-    
+    sh "dd if=/dev/zero of=/dev/null bs=1M count=1000000"
+
     // Thêm "phase 2" vào file
     sh "echo 'phase 2' >> logfile_${thread}.txt"
     
@@ -30,31 +31,31 @@ def Test(String thread) {
     echo "End time: ${endTime}"
     echo "Build time: ${duration} seconds"
 }
-// node("slave") {
-//     def input = ["1", "2", "3", "4","5","6","7","8","9"]
-//     def threadList = input
+node("slave") {
+    def input = ["1", "2", "3", "4","5","6","7","8","9"]
+    def threadList = input
 
-//     def parallelStages = [:]
+    def parallelStages = [:]
 
-//     threadList.each { thread ->
-//         parallelStages["Thread ${thread}"] = {
-//                 Test(thread.trim())
-//         }
-//     }
-//     parallel parallelStages
-// }
-def input = ["1", "2", "3", "4","5","6","7","8","9"]
-def threadList = input
-
-def parallelStages = [:]
-
-threadList.each { thread ->
-    parallelStages["Thread ${thread}"] = {
-        node("slave") {
-            Test(thread.trim())
+    threadList.each { thread ->
+        parallelStages["Thread ${thread}"] = {
+                Test(thread.trim())
         }
     }
+    parallel parallelStages
 }
-parallel parallelStages
+// def input = ["1", "2", "3", "4","5","6","7","8","9"]
+// def threadList = input
+
+// def parallelStages = [:]
+
+// threadList.each { thread ->
+//     parallelStages["Thread ${thread}"] = {
+//         node("slave") {
+//             Test(thread.trim())
+//         }
+//     }
+// }
+// parallel parallelStages
 
 
