@@ -30,7 +30,7 @@ def Test(String thread) {
     echo "End time: ${endTime}"
     echo "Build time: ${duration} seconds"
 }
-node("alpine_agent") {
+node("slave") {
     def input = ["1", "2", "3", "4"]
     def threadList = input
 
