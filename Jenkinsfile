@@ -9,12 +9,12 @@ def Test(String thread) {
     sleep(10)
     
     // Ghi "phase 1" vào file
-    writeFile(file: logFile, text: "phase 1\n")
+    echo "phase 1" > logfile
     
     sleep(5)
     
     // Thêm "phase 2" vào file
-    appendToFile(file: logFile, text: "phase 2\n")
+    echo "phase 2" >> logfile
     
     // Đọc nội dung file
     def content = readFile(logFile)
