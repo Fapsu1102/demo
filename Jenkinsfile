@@ -21,16 +21,17 @@ def Test(String thread) {
     // Đọc nội dung file
     sh "cat logfile_${thread}.txt"
 }
+node("alpine_agent") {
+    def input = ["1", "2", "3", "4"]
+    def threadList = input
 
-def input = ["1", "2", "3", "4"]
-def threadList = input
+    def parallelStages = [:]
 
-def parallelStages = [:]
-
-threadList.each { thread ->
-    parallelStages["Thread ${thread}"] = {
-        node("alpine_agent") {
-            Test(thread.trim())
+    threadList.each { thread ->
+        parallelStages["Thread ${thread}"] = {
+            node("alpine_agent") {
+                Test(thread.trim())
+            }
         }
     }
 }
