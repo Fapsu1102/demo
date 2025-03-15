@@ -30,33 +30,31 @@ def Test(String thread) {
     echo "End time: ${endTime}"
     echo "Build time: ${duration} seconds"
 }
-// node("alpine_agent") {
-//     def input = ["1", "2", "3", "4"]
-//     def threadList = input
+node("alpine_agent") {
+    def input = ["1", "2", "3", "4"]
+    def threadList = input
 
-//     def parallelStages = [:]
+    def parallelStages = [:]
 
-//     threadList.each { thread ->
-//         parallelStages["Thread ${thread}"] = {
-//             node("alpine_agent") {
-//                 Test(thread.trim())
-//             }
-//         }
-//     }
-//     parallel parallelStages
-// }
-def input = ["1", "2", "3", "4","5","6"]
-def threadList = input
-
-def parallelStages = [:]
-
-threadList.each { thread ->
-    parallelStages["Thread ${thread}"] = {
-        node("slave") {
-            Test(thread.trim())
+    threadList.each { thread ->
+        parallelStages["Thread ${thread}"] = {
+                Test(thread.trim())
         }
     }
+    parallel parallelStages
 }
-parallel parallelStages
+// def input = ["1", "2", "3", "4","5","6"]
+// def threadList = input
+
+// def parallelStages = [:]
+
+// threadList.each { thread ->
+//     parallelStages["Thread ${thread}"] = {
+//         node("slave") {
+//             Test(thread.trim())
+//         }
+//     }
+// }
+// parallel parallelStages
 
 
