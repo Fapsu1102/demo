@@ -31,7 +31,7 @@ def Test(String thread) {
     echo "Build time: ${duration} seconds"
 }
 node("slave") {
-    def input = ["1", "2", "3", "4"]
+    def input = ["1", "2", "3", "4","5","6","7","8","9"]
     def threadList = input
 
     def parallelStages = [:]
