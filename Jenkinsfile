@@ -45,7 +45,7 @@ def Test(String thread) {
 //     }
 //     parallel parallelStages
 // }
-def input = ["1", "2", "3", "4"]
+def input = ["1", "2", "3", "4","5","6"]
 def threadList = input
 
 def parallelStages = [:]
