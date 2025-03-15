@@ -1,11 +1,24 @@
 def Test(String thread) {
     echo "Đây là luồng số ${thread}"
-    touch "logfile_${thread}.txt"
-    sleep(10) 
-    echo "phase 1" > "logfile_${thread}.txt"
-    sleep(5) 
-    echo "phase 2" >> "logfile_${thread}.txt"
-    cat "logfile_${thread}.txt"
+    
+    def logFile = "logfile_${thread}.txt"
+    
+    // Tạo file rỗng
+    writeFile(file: logFile, text: "")
+    
+    sleep(10)
+    
+    // Ghi "phase 1" vào file
+    writeFile(file: logFile, text: "phase 1\n")
+    
+    sleep(5)
+    
+    // Thêm "phase 2" vào file
+    appendToFile(file: logFile, text: "phase 2\n")
+    
+    // Đọc nội dung file
+    def content = readFile(logFile)
+    echo content
 }
 node("alpine_agent"){
     def input = ["1", "2", "3", "4"]
