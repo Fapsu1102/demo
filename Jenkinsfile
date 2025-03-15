@@ -1,4 +1,7 @@
 def Test(String thread) {
+    echo "Đang chạy trên agent: ${env.NODE_NAME}"
+    echo "Workspace: ${env.WORKSPACE}"
+    sh "whoami"
     echo "Đây là luồng số ${thread}"
     
     // Tạo file rỗng
