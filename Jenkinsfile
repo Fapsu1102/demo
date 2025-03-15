@@ -1,4 +1,6 @@
 def Test(String thread) {
+    def startTime = new Date()
+    sh "date"
     echo "Đang chạy trên agent: ${env.NODE_NAME}"
     echo "Workspace: ${env.WORKSPACE}"
     sh "whoami"
@@ -20,6 +22,13 @@ def Test(String thread) {
     
     // Đọc nội dung file
     sh "cat logfile_${thread}.txt"
+    sh "date"
+    
+    def endTime = new Date()
+    def duration = (endTime.time - startTime.time) / 1000
+    echo "Start time: ${startTime}"
+    echo "End time: ${endTime}"
+    echo "Build time: ${duration} seconds"
 }
 node("alpine_agent") {
     def input = ["1", "2", "3", "4"]
