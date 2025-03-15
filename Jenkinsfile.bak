@@ -33,10 +33,9 @@ def gitcheckout() {
     }
 }
 
-node('ktht-autotest1') {
-    def userInput = input(id: 'userInput',
-            message: 'Enter comma-separated list of features:',
-            parameters: [string(defaultValue: '', description: 'Comma-separated list of features', name: 'features'),])
+def userInput = input(id: 'userInput',
+    message: 'Enter comma-separated list of features:',
+    parameters: [string(defaultValue: '', description: 'Comma-separated list of features', name: 'features'),])
 
 def featuresList = userInput.split(',')
 
@@ -46,9 +45,10 @@ def parallelStages = [:]
 
 featuresList.each { feature ->
     parallelStages[feature] = {
-        runTest(feature.trim())
+        node('ktht-autotest1'){
+            runTest(feature.trim())
+        }
     }
 }
 
 parallel parallelStages
-}
